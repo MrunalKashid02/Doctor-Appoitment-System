@@ -20,7 +20,7 @@ function App() {
         <Spinner /> 
         ) : (
         <Routes>
-          <Route path='/' 
+          <Route path="/" 
           element={
           <ProtectedRoutes>
             <HomePage />

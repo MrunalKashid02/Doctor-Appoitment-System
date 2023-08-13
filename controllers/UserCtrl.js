@@ -49,7 +49,7 @@ const authController = async (req,res)=>{
     try {
         const user = await UserModel.findOne({_id:req.body.userId})
         if(!user){
-            res.status(200).send({
+            return res.status(200).send({
                 message: 'user not found',
                 success:false
             })

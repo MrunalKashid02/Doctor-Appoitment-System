@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 const HomePage = () => {
 
   //login user data
-  const getUserdata = async () =>{
+  const getUserData = async () =>{
     try {
       const res= await axios.post('/api/v1/user/getUserdata',
       {},
@@ -20,7 +20,7 @@ const HomePage = () => {
     }
   }
   useEffect(()=>{
-    getUserdata()
+    getUserData()
   },[])
   return (
     <Layout>
