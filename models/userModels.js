@@ -12,7 +12,24 @@ const UserSchema = new mongoose.Schema({
     password:{
         type:String,
         require:[true,'password is reqiured']
-    }
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
+    isDoctor:{
+        type:Boolean,
+        default:false
+    },
+    notification:{
+        type:Array,
+        default:[],
+    },
+    seenNotification:{
+        type:Array,
+        default:[],
+    },
+
 })
 
 const userModels= mongoose.model('users',UserSchema)

@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import { setUser } from "../redux/features/userSlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const navigate=useNavigate();
 
   //get user
   //eslint-disable-next-line
@@ -27,12 +28,14 @@ export default function ProtectedRoute({ children }) {
       if (res.data.success) {
         dispatch(setUser(res.data.data));
       } else {
+        navigate("/login");
+         //<Navigate to="/login" />;
         localStorage.clear();
-        //<Navigate to="/login" />;
       }
     } catch (error) {
-      localStorage.clear();
+      
       dispatch(hideLoading());
+      localStorage.clear();
       console.log(error);
     }
   };
@@ -41,7 +44,7 @@ export default function ProtectedRoute({ children }) {
     if (!user) {
       getUser();
     }
-  }, [user, getUser]);
+  }, [user,getUser]);
 
   if (localStorage.getItem("token")) {
     return children;
