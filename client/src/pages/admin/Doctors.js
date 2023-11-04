@@ -31,6 +31,7 @@ const Doctors = () => {
            }) 
            if(res.data.success){
                 message.success(res.data.message);
+                window.location.reload();
            }
         } catch (error) {
             console.log(error);

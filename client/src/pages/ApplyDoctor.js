@@ -5,6 +5,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { hideLoading, showLoading } from '../redux/features/alertSlice';
 import axios from 'axios';
+import moment from 'moment';
 
 const ApplyDoctor = () => {
     const {user}=useSelector(state => state.user)
@@ -14,7 +15,10 @@ const ApplyDoctor = () => {
     const handleFinish=async (values)=>{
         try {
             dispatch(showLoading());
-            const res=await axios.post('/api/v1/user/apply-doctor',{...values,userId:user._id},{
+            const res=await axios.post('/api/v1/user/apply-doctor',{...values,userId:user._id, timings:[
+                moment(values.timings[0]).format('HH:mm'),
+                moment(values.timings[1]).format('HH:mm'),
+            ],},{
                 headers:{
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -77,7 +81,7 @@ const ApplyDoctor = () => {
 
             </Col>
         </Row>
-        <h4 className=''>Personal Details :</h4>
+        <h4 className=''>Professional Details :</h4>
         <Row gutter={20}>
             
             <Col xs={24} md={24} lg={8}>

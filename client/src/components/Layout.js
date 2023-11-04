@@ -16,8 +16,32 @@ const handleLogout=()=>{
     localStorage.clear();
     message.success('Logout Successfully');
     navigate("/login");
-}
-    const SidebarMenu=  user&&user.isAdmin ? adminMenu : userMenu  ;
+};
+
+//==============Doctor Menu====================
+ const doctorMenu =[
+    {
+        name:'Home',
+        path:'/',
+        icon: "fa-solid fa-house"
+    },
+    {
+        name:'Appoinments',
+        path:'/appointments',
+        icon:'fa-solid fa-list'
+    },
+    {
+        name:'Profile',
+        path:`/doctor/profile/${user && user._id}`,
+        icon:'fa-solid fa-user'
+    },
+];
+//=============================================
+    const SidebarMenu=  user && user.isAdmin 
+    ? adminMenu 
+    : user && user.isDoctor 
+    ? doctorMenu 
+    : userMenu;  
 
   return (
     <>
@@ -25,7 +49,7 @@ const handleLogout=()=>{
             <div className='layout'>
                 <div className='sidebar'>
                     <div className='logo'>
-                        <h6>Doctor Appointment System</h6>
+                        <h6>Doc Appoint</h6>
                         <hr/>
                     </div>
                     <div className='menu'>

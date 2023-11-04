@@ -11,6 +11,8 @@ import ApplyDoctor from './pages/ApplyDoctor';
 import NotificationPage from './pages/NotificationPage';
 import Users from './pages/admin/Users';
 import Doctors from './pages/admin/Doctors';
+import Profile from './pages/doctors/Profile';
+import BookingPage from './pages/BookingPage';
 
 
 
@@ -40,6 +42,18 @@ function App() {
           element={
           <ProtectedRoutes>
             <Users/>
+          </ProtectedRoutes>
+          }/>
+          <Route path="/doctor/profile/:id" 
+          element={
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
+          }/>
+          <Route path="/doctor/book-appointment/:doctorId" 
+          element={
+          <ProtectedRoutes>
+            <BookingPage />
           </ProtectedRoutes>
           }/>
           <Route path="/admin/doctor" 
