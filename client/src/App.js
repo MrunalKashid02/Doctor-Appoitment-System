@@ -13,6 +13,8 @@ import Users from './pages/admin/Users';
 import Doctors from './pages/admin/Doctors';
 import Profile from './pages/doctors/Profile';
 import BookingPage from './pages/BookingPage';
+import Appointments from './pages/Appointments';
+import DoctorAppointments from './pages/doctors/DoctorAppointments';
 
 
 
@@ -79,6 +81,18 @@ function App() {
             <PublicRoute>
               <Register/>
             </PublicRoute>
+          }/>
+          <Route path='/appointments' 
+          element={
+            <ProtectedRoutes>
+              <Appointments/>
+            </ProtectedRoutes>
+          }/>
+          <Route path='/doctor-appointments' 
+          element={
+            <ProtectedRoutes>
+              <DoctorAppointments/>
+            </ProtectedRoutes>
           }/>
         </Routes>
         )}

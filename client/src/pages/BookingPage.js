@@ -2,15 +2,19 @@ import React,{useState,useEffect} from 'react'
 import Layout from '../components/Layout'
 import { useParams } from 'react-router-dom';
 import axios  from 'axios';
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker, TimePicker, message } from 'antd';
+import {useDispatch,useSelector} from 'react-redux'
 import moment from 'moment';
+import { hideLoading, showLoading } from '../redux/features/alertSlice';
 
 const BookingPage = () => {
+    const {user} = useSelector(state=> state.user)
     const params =useParams()
     const [doctors,setDoctors]=useState([]);
-    const [date,setdate]=useState()
-    const [timings,setTimings]=useState()
-    const [isAvailable,setisAvailable]=useState();
+    const [date,setdate]=useState("")
+    const [time,setTime]=useState()
+    const [isAvailable,setisAvailable]=useState(false);
+    const dispatch=useDispatch()
 
     //login user data
     const getUserData = async () =>{
@@ -30,6 +34,63 @@ const BookingPage = () => {
         console.log(error)
       }
     }
+    /// booking function
+    const handleBooking = async()=>{
+      try {
+        setisAvailable(true);
+        if(!date && !time){
+          return alert("Date & Time Required");
+        }
+        dispatch(showLoading())
+        const res=await axios.post('/api/v1/user/book-appointment',
+        {
+          doctorId:params.doctorId,
+          userId:user._id,
+          doctorInfo:doctors,
+          userInfo:user,
+          date:date,
+          time:time
+        },{
+          headers:{
+            Authorization:`Bearer ${localStorage.getItem('token')}`
+          }
+        }
+        ) 
+        dispatch(hideLoading())
+        if(res.data.success){
+          message.success(res.data.message)
+        }
+      } catch (error) {
+        dispatch(hideLoading())
+        console.log(error)
+      }
+    }
+    const handleAvailability = async()=>{
+      try {
+        dispatch(showLoading())
+        const res= await axios.post('/api/v1/user/booking-availability',
+        {
+          doctorId:params.doctorId,date,time
+        },{
+          headers:{
+            Authorization:`Bearer ${localStorage.getItem('token')} `
+          }
+        }
+        )
+        dispatch(hideLoading());
+        if(res.data.success){
+          setisAvailable(true);
+          console.log(isAvailable)
+          message.success(res.data.message)
+        }else{
+          message.error(res.data.message)
+        }
+        
+      } catch (error) {
+        dispatch(hideLoading())
+        console.log(error)
+      }
+    }
     useEffect(()=>{
       getUserData()
     },[])
@@ -41,11 +102,13 @@ const BookingPage = () => {
                 <div>
                     <h4>Dr.{doctors.firstName} {doctors.lastName}</h4>
                     <h4>Fees: {doctors.feesperCunsaltation}</h4>
-                    <h4>Timings: {doctors.timings[0]-[1]}</h4>
-                    <div className='d-flex flex-column'>
-                        <DatePicker format={"DD-MM-YYYY"} onChange={(value)=> setdate(moment(value).format('DD-MM-YYYY'))}/>
-                        <TimePicker.RangePicker format={"HH:mm"} onChange={(values)=>setTimings([moment(values[0]).format('HH:mm'),moment(values[1]).format('HH:mm')])}/>
-                        <button className='btn btn-primary mt-2'>Check Availability</button>
+                    {/* <h4>Timings: {doctors.timings[0]}</h4> */}
+                    <div className='d-flex flex-column w-50'>
+                        <DatePicker className='m-2' format={"DD-MM-YYYY"} onChange={(value)=>{setdate(moment(value).format('DD-MM-YYYY'))}}/>
+                        <TimePicker className='m-2' format={"HH:mm"} onChange={(value)=> {setTime(moment(value).format('HH:mm'))}}/>
+                        <button className='btn btn-primary mt-2' onClick={handleAvailability}>Check Availability</button>
+                        <button className='btn btn-dark mt-2' onClick={handleBooking}>Book Now</button>
+
                     </div>   
                 </div>
             )}
