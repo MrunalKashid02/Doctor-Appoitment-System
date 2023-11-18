@@ -1,12 +1,16 @@
+
 .form-container{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    
+    color: white;
+
 }
 .register-form{
+    
     border: 1px solid gray;
     padding: 30px ;
+    background-color: white;
     
 }

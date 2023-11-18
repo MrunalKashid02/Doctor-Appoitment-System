@@ -72,12 +72,12 @@ const handleLogout=()=>{
                 </div>
                 <div className='content'>
                     <div className='header'>
-                        <div className='header-content' style={{cursor: 'pointer'}}>
+                        <div className='header-content m-2' style={{cursor: 'pointer'}}>
                         <Badge count={user && user.notification.length} 
                         onClick={()=>{navigate('/notification')}}
                         >
                             <i class="fa-solid fa-bell"></i>
-                        </Badge>    
+                        </Badge >    
                             <Link to="/profile">{user&&user.name}</Link>
                         </div>
                     </div>

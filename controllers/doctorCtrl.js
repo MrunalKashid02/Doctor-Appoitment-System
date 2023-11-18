@@ -1,6 +1,7 @@
 
 const appointmentModel = require('../models/appointmentModel');
-const doctorModel=require('../models/docterModels')
+const doctorModel=require('../models/docterModels');
+const userModels = require('../models/userModels');
 const getDoctorInfoController= async(req,res)=>{
     try {
         const doctor=await doctorModel.findOne({userId:req.body.userId})
@@ -54,8 +55,8 @@ const getDoctorByIdController = async (req,res)=>{
 }
 const appointmentfordoctorcontroller= async(req,res) =>{
     try {
-        const doctor= await doctorModel.findOne({userId:req.body.userId})
-        const appointments= await appointmentModel.find({doctorId:req.body.doctorId})
+        const doctor= await doctorModel.findOne({userId: req.body.userId})
+        const appointments= await appointmentModel.find({doctorId:doctor.id})
         res.status(200).send({
             message:'Doctor Appointment fetch Successfully',
             success:true,
@@ -71,4 +72,31 @@ const appointmentfordoctorcontroller= async(req,res) =>{
         })
     }
 }
-module.exports={getDoctorInfoController,updateProfileController,getDoctorByIdController,appointmentfordoctorcontroller};
+const updateStatusController= async (req,res)=>{
+    try {
+        const {appointmentsId,status}=req.body
+        const appointments= await appointmentModel.findByIdAndUpdate(appointmentsId,{status})
+        const user= await userModels.findOne({_id:appointments.userId})
+        const notification = user.notification
+        notification.push({
+            type:'status updated',
+            message:`Your appointment has been ${status}`,
+            onClickPath:'/doctor-appointments'
+
+        })
+        await user.save();
+        res.status(200).send({
+            success:true,
+            message:'Appointment Status updated'
+        })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            message:'Error in upadating the status',
+            error
+        })
+    }
+}
+module.exports={getDoctorInfoController,updateProfileController,getDoctorByIdController,appointmentfordoctorcontroller,updateStatusController};

@@ -4,7 +4,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { Table } from 'antd'
 const Appointments = () => {
-  const [appointments,Setappoinments]=useState()
+  const [appointments,Setappoinments]=useState([])
   const  getAppointments =async()=>{
     try {
         const res= await axios.get('/api/v1/user/user-appointments',{

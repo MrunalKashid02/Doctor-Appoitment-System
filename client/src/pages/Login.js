@@ -6,6 +6,7 @@ import { showLoading,hideLoading } from '../redux/features/alertSlice';
 import {Link,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
+
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -33,7 +34,7 @@ const Login = () => {
     }
   }
   return (
-    <>
+    <> 
       <div className='form-container'>
         <Form layout="vertical" onFinish={onfinishHandler} className="register-form">
           <h3 className='text-center'>Login Form</h3>
@@ -49,6 +50,7 @@ const Login = () => {
         </Form>
 
       </div>
+      
     </>
   );
 };
