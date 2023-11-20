@@ -4,7 +4,8 @@ const bcrypt =require('bcryptjs');
 const jwt= require('jsonwebtoken');
 const doctorModel=require('../models/docterModels');
 const moment = require('moment')
-const appointmentModel= require('../models/appointmentModel')
+const appointmentModel= require('../models/appointmentModel');
+const userModels = require('../models/userModels');
 
 
 
@@ -252,4 +253,5 @@ const useAppointContoller= async(req,res)=>{
         })
     }
 }
-module.exports= {loginController,registerController,authController,applyDoctorController,getAllNotificationController,getAllDoctorsController,bookAppointmentController,deleteAllNotificationController,bookingAvailabilityController,useAppointContoller};
+
+module.exports= {loginController,registerController,authController,applyDoctorController,getAllNotificationController,getAllDoctorsController,bookAppointmentController,deleteAllNotificationController,bookingAvailabilityController,useAppointContoller,};

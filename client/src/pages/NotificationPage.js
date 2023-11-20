@@ -54,13 +54,13 @@ const NotificationPage = () => {
     };
   return (
     <Layout>
-        <h4 className='p-3 text-center'>Notification Page</h4>
-        <Tabs>
-            <Tabs.TabPane tab="unRead" key={0}>
+        <h4 className='m-3 p-3 text-center'>Notification Page</h4>
+        <Tabs className='m-1'>
+            <Tabs.TabPane className='m-1 pt-1' tab="Unseen" style={{cursor:'pointer'}} key={0}>
                 <div className='d-flex justify-content-end'>
-                    <h4 className='p-2' onClick={handleMarkAllRead}>
+                    <h5 className='p-2' onClick={handleMarkAllRead}>
                         Mark All Read
-                    </h4>
+                    </h5>
                 </div>
                 {user && user.notification.map((notificationMsg)=>(
                     <div className='card'  style={{cursor:'pointer'}}>
@@ -71,11 +71,11 @@ const NotificationPage = () => {
                     ))
                 }
             </Tabs.TabPane>
-            <Tabs.TabPane tab="Read" key={1}>
+            <Tabs.TabPane className='m-1 pt-1' tab="Seen" key={1}>
                 <div className='d-flex justify-content-end'>
-                    <h4 className='p-2 text-primary' style={{cursor:"pointer"}} onClick={handleDeleteAllRead}>
+                    <h5 className='p-2 text-primary' style={{cursor:"pointer"}} onClick={handleDeleteAllRead}>
                         Delete All Read
-                    </h4>
+                    </h5>
                 </div>
                 {user && user.seenNotification.map((notificationMsg)=>(
                     <div className='card'  style={{cursor:'pointer'}}>

@@ -29,16 +29,16 @@ const Appointments = () => {
         title:'ID',
         dataIndex:'_id'
     },
-    //{
-    //     title:'Name',
-    //     dataIndex:'name',
-    //     render:(text,record)=>(
-    //         <span>
-    //              {record.doctorInfo.firstName}{record.doctorInfo.lastName}
-    //         </span>
+    {
+        title:'Name',
+        dataIndex:'name',
+        render:(text,record)=>(
+            <span>
+                 {record.doctorInfo.firstName}{record.doctorInfo.lastName}
+            </span>
            
-    //     )
-    // },
+        )
+    },
     // {
     //     title:'Phone',
     //     dataIndex:'phone',
@@ -69,7 +69,7 @@ const Appointments = () => {
     ]
   return (
     <Layout>
-      <h1>Appointments list</h1>
+      <h4 className='m-5 pb-3 border-bottom text-center'>Appointments list</h4>
       <Table columns={columns} dataSource={appointments} />
     </Layout>
   )

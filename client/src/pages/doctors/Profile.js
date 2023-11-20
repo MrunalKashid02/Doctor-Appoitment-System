@@ -65,7 +65,7 @@ const Profile = () => {
   },[])
   return (
     <Layout>
-      <h1>Manage Profile</h1>
+      <h4 className='m-3 pb-3 border-bottom text-center' style={{borderBottomStyle:'2px solid gray ;'}}>Doctor Profile</h4> 
       {doctor && (
         <Form layout="vertical" onFinish={handleFinish} className='m-3' 
         initialValues={{

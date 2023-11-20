@@ -96,13 +96,14 @@ const BookingPage = () => {
     },[])
     return (
         <Layout>
-        <h3>Booking Page</h3>
+        <h4 className='m-3 pb-3 border-bottom text-center'>Booking Page</h4>
         <div className='container'>
             {doctors && (
-                <div>
+                <div className='row align-center'>
+                  
                     <h4>Dr.{doctors.firstName} {doctors.lastName}</h4>
                     <h4>Fees: {doctors.feesperCunsaltation}</h4>
-                    {/* <h4>Timings: {doctors.timings[0]}</h4> */}
+                    {/* {<h4>Timings: {doctors.timings}</h4>} */}
                     <div className='d-flex flex-column w-50'>
                         <DatePicker className='m-2' format={"DD-MM-YYYY"} onChange={(value)=>{setdate(moment(value).format('DD-MM-YYYY'))}}/>
                         <TimePicker className='m-2' format={"HH:mm"} onChange={(value)=> {setTime(moment(value).format('HH:mm'))}}/>
@@ -110,6 +111,7 @@ const BookingPage = () => {
                         <button className='btn btn-dark mt-2' onClick={handleBooking}>Book Now</button>
 
                     </div>   
+                  
                 </div>
             )}
         </div>

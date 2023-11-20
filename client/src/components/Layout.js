@@ -42,6 +42,7 @@ const handleLogout=()=>{
     : user && user.isDoctor 
     ? doctorMenu 
     : userMenu;  
+    
 
   return (
     <>
@@ -49,7 +50,8 @@ const handleLogout=()=>{
             <div className='layout'>
                 <div className='sidebar'>
                     <div className='logo'>
-                        <h6>Doc Appoint</h6>
+                        <h3 className='m-2'><span style={{color:'#e0b50f'}}> Doc </span> Appoint</h3>
+                        <p className='m-2'>I am {user && user.isAdmin ? 'admin' : user && user.isDoctor ? 'doctor' : 'user'}</p>
                         <hr/>
                     </div>
                     <div className='menu'>
@@ -62,7 +64,7 @@ const handleLogout=()=>{
                                         <Link to={menu.path}>{menu.name}</Link>
                                     </div>
                                 </>
-                            );
+                            ); 
                         })}
                         <div className={`menu-item `} onClick={handleLogout}>
                                     <i className='fa-solid fa-right-from-bracket'></i>
@@ -73,7 +75,7 @@ const handleLogout=()=>{
                 <div className='content'>
                     <div className='header'>
                         <div className='header-content m-2' style={{cursor: 'pointer'}}>
-                        <Badge count={user && user.notification.length} 
+                        <Badge  count={user && user.notification.length} 
                         onClick={()=>{navigate('/notification')}}
                         >
                             <i class="fa-solid fa-bell"></i>

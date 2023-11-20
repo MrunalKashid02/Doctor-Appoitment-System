@@ -50,7 +50,7 @@ const Users = () => {
    ]
   return (
     <Layout>
-        <h1 className='text-center m-3'>All users list</h1>
+        <h4 className='text-center m-3 p-3 border-bottom'>All Users</h4>
         <Table columns={columns} dataSource={users}/>
     </Layout>
   )
